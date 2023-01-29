@@ -21,11 +21,11 @@ int main(void) {
         char buf[MAX_LINE_CHARACTERS];
         char *argv[MAX_LINE_WORDS];
 
-        // Print Prompt
-        printf(PROMPT);
 
-        // Get user input
-        fgets(buf, MAX_LINE_CHARACTERS, stdin);
+        printf(PROMPT); // Print Prompt
+
+
+        fgets(buf, MAX_LINE_CHARACTERS, stdin); // Get user input
 
         if (DEBUG) printf("*honk*\t> %s", buf);
 
@@ -42,11 +42,11 @@ int main(void) {
             for (int i = 1; i < argc; ++i) {
                 printf("\n\t\t  arg[%d]: %s", i, argv[i]);
             }
-        }
+        } // Print out argv during debug
 
         if (!strcmp(argv[0],"exit\n")) {
             we_going = 0;
-        }
+        } //Get me out of here!
     }
     return 0;
 }
