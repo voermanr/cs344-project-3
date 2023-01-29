@@ -44,14 +44,26 @@ int main(void) {
             }
         } // Print out argv during debug
 
-        // PART 1-6
-        execvp(argv[0],argv);
+        if (!strcmp(argv[0],"exit")) {
+            exit(0);
+        }
 
-        if (!strcmp(argv[0],"exit\n")) {
-            we_going = 0;
-        } //Get me out of here!
+        else if (!strcmp(argv[0],"cd")) {
+            int z = chdir(argv[1]);
+            if (z == -1) {
+                perror(argv[1]);
+                exit(1);
+            } else continue;
+        }
+
+        else {
+            pid_t the_baby = fork();
+            if (the_baby && execvp(argv[0], argv)) {
+                perror(argv[0]);
+                exit(1);
+            } else wait(&the_baby);
+        }
     }
-    return 0;
 }
 
 int build_argv(int argc, char *buf, char **argv) {
