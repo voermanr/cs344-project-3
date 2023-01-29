@@ -4,36 +4,23 @@
 #include "unistd.h"
 #include "sys/wait.h"
 
-#define BUFSIZE 2048
-#define MAX_ARGUMENTS 256
-
-char **tokenize_input(char *buf);
+#define MAX_LINE_CHARACTERS 2048
+#define MAX_LINE_WORDS 256
 
 int main(void) {
-    printf(":O < ");
+    printf("*<@:) < ");
 
-    char *buf = 0;
-    fgets(buf, BUFSIZE, stdin);
+    char buf[MAX_LINE_CHARACTERS];
+    fgets(buf, MAX_LINE_CHARACTERS, stdin);
     printf("%s", buf);
 
-    //char **argv;
-    //argv = tokenize_input(buf);
+    char *argv[MAX_LINE_WORDS];
+
+    for (int i = 0; i < MAX_LINE_WORDS; ++i) {
+
+    }
 
     //printf("%s ", *argv);
 
     return 0;
-}
-
-char **tokenize_input(char *buf) {
-    char **tok_arr = malloc(sizeof(char*) * MAX_ARGUMENTS);
-    int i = 0;
-    char *tok;
-    for(; i < MAX_ARGUMENTS; ++i) {
-        tok = strtok(buf, " ");
-        tok_arr[i] = tok;
-        if (tok == NULL) {
-            return tok_arr;
-        }
-    }
-    return NULL;
 }
