@@ -12,6 +12,9 @@
 
 #ifndef DEBUG
 #define DEBUG 0
+
+void build_argv(int argc, char *buf, char **argv);
+
 #endif
 
 int main(void) {
@@ -30,12 +33,8 @@ int main(void) {
         if (DEBUG) printf("*honk*\t> %s", buf);
 
         // Where we tokenize into argv
-        char *tok = strtok(buf, DELIMITERS);
-        while (tok != NULL && argc < MAX_LINE_WORDS) {
-            argv[argc++] = tok;
-            tok = strtok(NULL, DELIMITERS);
-        }
-        argv[argc] = NULL;
+        build_argv(argc, buf, argv);
+
 
         if (DEBUG) {
             printf("*honk*\t> arg[0]: %s", argv[0]);
@@ -49,4 +48,13 @@ int main(void) {
         } //Get me out of here!
     }
     return 0;
+}
+
+void build_argv(int argc, char *buf, char **argv) {
+    char *tok = strtok(buf, DELIMITERS);
+    while (tok != NULL && argc < MAX_LINE_WORDS) {
+        argv[argc++] = tok;
+        tok = strtok(NULL, DELIMITERS);
+    }
+    argv[argc] = NULL;
 }
