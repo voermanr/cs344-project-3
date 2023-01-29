@@ -5,7 +5,7 @@
 #include "sys/wait.h"
 
 #define MAX_LINE_CHARACTERS 2048
-#define MAX_LINE_WORDS 256
+#define MAX_LINE_WORDS 128
 
 #define DELIMITERS " \n"
 #define PROMPT "*<@:) \t< "
