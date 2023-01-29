@@ -44,6 +44,9 @@ int main(void) {
             }
         } // Print out argv during debug
 
+        // PART 1-6
+        execvp(argv[0],argv);
+
         if (!strcmp(argv[0],"exit\n")) {
             we_going = 0;
         } //Get me out of here!
