@@ -14,13 +14,15 @@
 #define DEBUG 0
 #endif
 
-#define INTRO "\tWELCOME TO MUSH: \nA SHELL FOR A CLOWNS BY CLOWNS\n\n\t\tLead Clown: Ross V\n\n\n"
+#define INTRO "\tWELCOME TO MUSH: \nA SHELL FOR CLOWNS BY CLOWNS\n\n\t\tLead Clown: Ross V\n\n\n"
 
 int build_argv(int argc, char *buf, char **argv);
 
 int main(void) {
     int we_going = 1;
+
     printf(INTRO);
+
     while(we_going) {
         int argc = 0;
         char buf[MAX_LINE_CHARACTERS];
