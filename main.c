@@ -15,13 +15,11 @@
 #endif
 
 int main(void) {
-    printf("*<@:) < ");
-
-    char buf[MAX_LINE_CHARACTERS];
-    fgets(buf, MAX_LINE_CHARACTERS, stdin);
-    printf("%s", buf);
-
-    char *argv[MAX_LINE_WORDS];
+    int we_going = 1;
+    while(we_going) {
+        int argc = 0;
+        char buf[MAX_LINE_CHARACTERS];
+        char *argv[MAX_LINE_WORDS];
 
     for (int i = 0; i < MAX_LINE_WORDS; ++i) {
 
@@ -29,5 +27,10 @@ int main(void) {
 
     //printf("%s ", *argv);
 
+        //Get me out of here!
+        if (!strcmp(argv[0],"exit\n")) {
+            we_going = 0;
+        }
+    }
     return 0;
 }
