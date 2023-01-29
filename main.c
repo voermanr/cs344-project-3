@@ -29,11 +29,13 @@ int main(void) {
 
         if (DEBUG) printf("*honk*\t> %s", buf);
 
+        // Where we tokenize into argv
         char *tok = strtok(buf, DELIMITERS);
         while (tok != NULL && argc < MAX_LINE_WORDS) {
             argv[argc++] = tok;
             tok = strtok(NULL, DELIMITERS);
         }
+        argv[argc] = NULL;
 
         if (DEBUG) {
             printf("*honk*\t> arg[0]: %s", argv[0]);
@@ -42,7 +44,6 @@ int main(void) {
             }
         }
 
-        //Get me out of here!
         if (!strcmp(argv[0],"exit\n")) {
             we_going = 0;
         }
