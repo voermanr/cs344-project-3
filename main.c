@@ -18,6 +18,8 @@
 
 int build_argv(int argc, char *buf, char **argv);
 
+int tokenize_string(char *buf, char **argv);
+
 int main(void) {
     int we_going = 1;
 
@@ -69,11 +71,18 @@ int main(void) {
 }
 
 int build_argv(int argc, char *buf, char **argv) {
-    char *tok = strtok(buf, DELIMITERS);
-    while (tok != NULL && argc < MAX_LINE_WORDS) {
-        argv[argc++] = tok;
-        tok = strtok(NULL, DELIMITERS);
-    }
+    argc = tokenize_string(buf, argv);
     argv[argc] = NULL;
     return 0;
+}
+
+int tokenize_string(char *buf, char **argv) {
+    int num_tokens = 0;
+
+    char *tok = strtok(buf, DELIMITERS);
+    while (tok != NULL && num_tokens < MAX_LINE_WORDS) {
+        argv[num_tokens++] = tok;
+        tok = strtok(NULL, DELIMITERS);
+    }
+    return num_tokens;
 }
