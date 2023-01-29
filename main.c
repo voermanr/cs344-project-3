@@ -21,11 +21,26 @@ int main(void) {
         char buf[MAX_LINE_CHARACTERS];
         char *argv[MAX_LINE_WORDS];
 
-    for (int i = 0; i < MAX_LINE_WORDS; ++i) {
+        // Print Prompt
+        printf(PROMPT);
 
-    }
+        // Get user input
+        fgets(buf, MAX_LINE_CHARACTERS, stdin);
 
-    //printf("%s ", *argv);
+        if (DEBUG) printf("*honk*\t> %s", buf);
+
+        char *tok = strtok(buf, DELIMITERS);
+        while (tok != NULL && argc < MAX_LINE_WORDS) {
+            argv[argc++] = tok;
+            tok = strtok(NULL, DELIMITERS);
+        }
+
+        if (DEBUG) {
+            printf("*honk*\t> arg[0]: %s", argv[0]);
+            for (int i = 1; i < argc; ++i) {
+                printf("\n\t\t  arg[%d]: %s", i, argv[i]);
+            }
+        }
 
         //Get me out of here!
         if (!strcmp(argv[0],"exit\n")) {
