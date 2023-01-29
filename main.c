@@ -7,6 +7,13 @@
 #define MAX_LINE_CHARACTERS 2048
 #define MAX_LINE_WORDS 256
 
+#define DELIMITERS " "
+#define PROMPT "*<@:) \t< "
+
+#ifndef DEBUG
+#define DEBUG 0
+#endif
+
 int main(void) {
     printf("*<@:) < ");
 

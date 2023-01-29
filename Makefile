@@ -1,5 +1,5 @@
 CC=gcc
-CCOPTS=-Wall -Wextra
+CFLAGS= -g -Wall -Wextra
 LIBS=
 
 SRCS=$(wildcard *.c)
@@ -9,8 +9,11 @@ TARGETS=$(SRCS:.c=)
 
 all: $(TARGETS)
 
+debug: CFLAGS += -Wextra -g -DDEBUG=1
+debug: $(TARGETS)
+
 clean:
 	rm -f $(TARGETS)
 
 %: %.c
-	$(CC) $(CCOPTS) -o $@ $< $(LIBS)
+	$(CC) $(CFLAGS) -o $@ $< $(LIBS)
