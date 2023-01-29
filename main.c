@@ -1,3 +1,4 @@
+#include <libgen.h>
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
@@ -30,11 +31,10 @@ int main(void) {
         char buf[MAX_LINE_CHARACTERS];
         char *argv[MAX_LINE_WORDS];
 
-        char *pwd = getcwd(NULL,0);
-
-
-        printf("%s %s", pwd, PROMPT); // Print Prompt
-        free(pwd);
+        char *fpwd = getcwd(NULL, 0);
+        char *pwd = basename(fpwd);
+        printf("%s/%s", pwd, PROMPT); // Print Prompt
+        free(fpwd);
 
 
         fgets(buf, MAX_LINE_CHARACTERS, stdin); // Get user input
