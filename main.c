@@ -7,14 +7,11 @@
 #define MAX_LINE_CHARACTERS 2048
 #define MAX_LINE_WORDS 256
 
-#define DELIMITERS " "
+#define DELIMITERS " \n"
 #define PROMPT "*<@:) \t< "
 
 #ifndef DEBUG
 #define DEBUG 0
-
-void build_argv(int argc, char *buf, char **argv);
-
 #endif
 
 int main(void) {
@@ -32,7 +29,6 @@ int main(void) {
 
         if (DEBUG) printf("*honk*\t> %s", buf);
 
-        // Where we tokenize into argv
         build_argv(argc, buf, argv);
 
 
@@ -50,11 +46,12 @@ int main(void) {
     return 0;
 }
 
-void build_argv(int argc, char *buf, char **argv) {
+int build_argv(int argc, char *buf, char **argv) {
     char *tok = strtok(buf, DELIMITERS);
     while (tok != NULL && argc < MAX_LINE_WORDS) {
         argv[argc++] = tok;
         tok = strtok(NULL, DELIMITERS);
     }
     argv[argc] = NULL;
+    return 0;
 }
