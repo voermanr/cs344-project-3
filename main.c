@@ -30,8 +30,11 @@ int main(void) {
         char buf[MAX_LINE_CHARACTERS];
         char *argv[MAX_LINE_WORDS];
 
+        char *pwd = getcwd(NULL,0);
 
-        printf(PROMPT); // Print Prompt
+
+        printf("%s %s", pwd, PROMPT); // Print Prompt
+        free(pwd);
 
 
         fgets(buf, MAX_LINE_CHARACTERS, stdin); // Get user input
