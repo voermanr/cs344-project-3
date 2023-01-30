@@ -26,23 +26,20 @@ void fork_and_execute(char **argv);
 int main(void) {
     printf(INTRO);
 
-    while(we_going) {
-        int argc = 0;
-        char buf[MAX_LINE_CHARACTERS];
-        char *argv[MAX_LINE_WORDS];
-
+    while(1) {
         char *fpwd = getcwd(NULL, 0);
         char *pwd = basename(fpwd);
         printf("%s/%s", pwd, PROMPT); // Print Prompt
         free(fpwd);
 
-
+        char buf[MAX_LINE_CHARACTERS];
         fgets(buf, MAX_LINE_CHARACTERS, stdin); // Get user input
 
         if (DEBUG) printf("*honk*\t> %s", buf);
 
-        build_argv(argc, buf, argv);
-
+        char *argv[MAX_LINE_WORDS];
+        int argc = 0;
+        build_argv(&argc, buf, argv);
 
         if (DEBUG) {
             printf("*honk*\t> arg[0]: %s", argv[0]);
@@ -52,15 +49,13 @@ int main(void) {
         } // Print out argv during debug
 
         if (!strcmp(argv[0],"exit")) {
-            exit(0);
+            exit(EXIT_SUCCESS);
         }
 
         else if (!strcmp(argv[0],"cd")) {
-            int z = chdir(argv[1]);
-            if (z == -1) {
+            if (chdir(argv[1])) {
                 perror(argv[1]);
-                exit(1);
-            } else continue;
+            }
         }
 
         else {
