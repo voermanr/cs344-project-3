@@ -17,13 +17,13 @@
 
 #define INTRO "\tWELCOME TO MUSH: \nA SHELL FOR CLOWNS BY CLOWNS\n\n\t\tLead Clown: Ross V\n\n\n"
 
-int build_argv(int argc, char *buf, char **argv);
+int build_argv(int *argc, char *buf, char **argv);
 
 int tokenize_string(char *buf, char **argv);
 
-int main(void) {
-    int we_going = 1;
+void fork_and_execute(char **argv);
 
+int main(void) {
     printf(INTRO);
 
     while(we_going) {
@@ -64,18 +64,24 @@ int main(void) {
         }
 
         else {
-            pid_t the_baby = fork();
-            if (the_baby && execvp(argv[0], argv)) {
-                perror(argv[0]);
-                exit(1);
-            } else wait(&the_baby);
+            fork_and_execute(argv);
         }
     }
 }
 
-int build_argv(int argc, char *buf, char **argv) {
-    argc = tokenize_string(buf, argv);
-    argv[argc] = NULL;
+void fork_and_execute(char **argv) {
+    pid_t the_baby = fork();
+    if (the_baby == 0) {
+        if (execvp(argv[0], argv) == -1) {
+            perror(argv[0]);
+            exit(EXIT_FAILURE);
+        }
+    } else wait(NULL);
+}
+
+int build_argv(int *argc, char *buf, char **argv) {
+    *argc = tokenize_string(buf, argv);
+    argv[*argc] = NULL;
     return 0;
 }
 
